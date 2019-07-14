@@ -1,1 +1,17 @@
-<p>book-list works!</p>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion *ngIf="books.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let book of books">
+    <mat-expansion-panel-header>
+      {{ book.title }}
+      <span><i> {{ book.bookshelfNo }}</i></span>
+    </mat-expansion-panel-header>
+
+    <p> {{ book.description }}</p>
+    <mat-action-row>
+        <a mat-button [routerLink]="['/edit', book.id]">EDIT</a>
+        <button mat-button color="warn" (click)="onDelete(book.id)">DELETE</button>
+      </mat-action-row>
+
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="mat-body-1" *ngIf="books.length <= 0 && !isLoading">No book added yet</p>
