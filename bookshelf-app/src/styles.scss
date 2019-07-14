@@ -1,1 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+
+@include mat-core();
+// Available color palettes: https://material.io/design/color/
+$www-primary: mat-palette($mat-indigo);
+$www-accent: mat-palette($mat-blue-gray, 900);
+
+// The warn palette is optional (defaults to red).
+$www-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$www-theme: mat-light-theme($www-primary, $www-accent, $www-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($www-theme);
+
+$roboto: mat-typography-config($font-family: 'Roboto');
+@include mat-select-typography($roboto);
+
+body {
+  margin: 0;
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+}
+
+/* angular material overwrites */
+mat-card-content {
+  margin: 0 40px;
+}
