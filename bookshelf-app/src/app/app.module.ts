@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { AppComponent } from '@app/app.component';
 
-import { SHARED_ANGULAR_MATERIAL } from './components/angular-material.imports';
-
-import { AppComponent } from './app.component';
+import { SHARED_ANGULAR_MATERIAL, HeaderComponent } from '@app/components';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

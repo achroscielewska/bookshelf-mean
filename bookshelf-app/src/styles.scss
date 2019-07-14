@@ -22,10 +22,5 @@ $roboto: mat-typography-config($font-family: 'Roboto');
 
 body {
   margin: 0;
-  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-}
-
-/* angular material overwrites */
-mat-card-content {
-  margin: 0 40px;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
