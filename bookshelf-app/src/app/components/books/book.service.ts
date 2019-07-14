@@ -8,13 +8,13 @@ import { environment } from '@environments/environment';
 import { Book } from './Book';
 import { BookDto } from './BookDto';
 
-@Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class BookService {
   private endpoint = `${environment.app_url}/books`;
   private books: Book[] = [];
   private booksUpdated = new Subject<Book[]>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   getBooks() {
     this.http
@@ -42,7 +42,7 @@ export class BookService {
   }
 
   getBook(id: string) {
-    return this.http.get<{message: string; book: BookDto }>(`${this.endpoint}/${id}`);
+    return this.http.get<{ message: string; book: Book }>(`${this.endpoint}/${id}`)
   }
 
   addBook(book: Book) {

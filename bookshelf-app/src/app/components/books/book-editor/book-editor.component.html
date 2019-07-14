@@ -1,1 +1,19 @@
-<p>book-editor works!</p>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="saveBook(bookForm)" #bookForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="book.title" name="title" placeholder="title" required #title>
+      <mat-error *ngIf="title.invalid">Please enter title</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="book.bookshelfNo" name="bookshelfNo" placeholder="bookshelfNo" required #bookshelfNo>
+      <mat-error *ngIf="bookshelfNo.invalid">Please enter bookshelfNo</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput col="30" rows="6" [(ngModel)]="book.description" name ="description" placeholder="description" required #description></textarea>
+      <mat-error *ngIf="description.invalid">Please enter description</mat-error>
+    </mat-form-field>
+    <button mat-button type="submit" color="primary" >SAVE BOOK</button>
+  </form>
+
+</mat-card>
