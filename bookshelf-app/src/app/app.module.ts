@@ -4,11 +4,14 @@ import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 
 import { SHARED_ANGULAR_MATERIAL, HeaderComponent } from '@app/components';
+import { BookEditorComponent, BookListComponent } from '@app/components/books';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    BookEditorComponent,
+    BookListComponent
   ],
   imports: [
     BrowserModule,
