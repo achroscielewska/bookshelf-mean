@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,6 +20,7 @@ import { BookEditorComponent, BookListComponent } from '@app/components/books';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,

@@ -42,7 +42,7 @@ export class BookService {
   }
 
   getBook(id: string) {
-    return this.http.get<{ message: string; book: Book }>(`${this.endpoint}/${id}`)
+    return this.http.get<{ message: string; book: BookDto }>(`${this.endpoint}/${id}`)
   }
 
   addBook(book: Book) {
