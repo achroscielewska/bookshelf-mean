@@ -4,5 +4,6 @@ export class Book {
     public title: string = '',
     public description: string = '',
     public bookshelfNo: string = '',
+    public imagePath: string = '',
   ) { }
 }

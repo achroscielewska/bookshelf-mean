@@ -36,7 +36,8 @@ export class BookEditorComponent implements OnInit {
             title: data.book.title,
             bookshelfNo: data.book.bookshelfNo,
             description: data.book.description,
-           };
+            imagePath: data.book.imagePath
+          };
           this.formSetValue();
           this.isLoading = false;
         });
@@ -49,10 +50,10 @@ export class BookEditorComponent implements OnInit {
 
   formInit() {
     this.form = new FormGroup({
-      title: new FormControl(null, { validators: [Validators.required, Validators.minLength(3)]} ),
-      bookshelfNo: new FormControl(null, { validators: [Validators.required, Validators.minLength(3)]} ),
-      description: new FormControl(null, { validators: [Validators.required, Validators.minLength(3)]} ),
-      image: new FormControl(null, { validators: [Validators.required]} ),
+      title: new FormControl(null, { validators: [Validators.required, Validators.minLength(3)] }),
+      bookshelfNo: new FormControl(null, { validators: [Validators.required, Validators.minLength(3)] }),
+      description: new FormControl(null, { validators: [Validators.required, Validators.minLength(3)] }),
+      image: new FormControl(null, { validators: [Validators.required] }),
     });
   }
 
@@ -61,17 +62,18 @@ export class BookEditorComponent implements OnInit {
       title: this.book.title,
       bookshelfNo: this.book.bookshelfNo,
       description: this.book.description,
+      image: null
     });
   }
 
   onImagePicked(event: Event) {
     const file: File = (event.target as HTMLInputElement).files[0];
 
-    if (file.type !== 'image/jpg' && file.type !== 'image/jpeg' &&  file.type !== 'image/png') {
+    if (file.type !== 'image/jpg' && file.type !== 'image/jpeg' && file.type !== 'image/png') {
       return alert('File format should be png or jpg or jpeg');
     }
 
-    this.form.patchValue({ image: file});
+    this.form.patchValue({ image: file });
     this.form.get('image').updateValueAndValidity();
 
     const reader = new FileReader();
@@ -90,16 +92,18 @@ export class BookEditorComponent implements OnInit {
         id: null,
         title: this.form.value.title,
         description: this.form.value.description,
-        bookshelfNo: this.form.value.bookshelfNo
+        bookshelfNo: this.form.value.bookshelfNo,
+        imagePath: null
       };
 
-      this.bookService.addBook(newBook);
+      this.bookService.addBook(newBook, this.form.value.image);
     } else {
       const upadtedBook: Book = {
         id: this.bookId,
         title: this.form.value.title,
         description: this.form.value.description,
-        bookshelfNo: this.form.value.bookshelfNo
+        bookshelfNo: this.form.value.bookshelfNo,
+        imagePath: null
       };
       this.bookService.updateBook(this.bookId, upadtedBook);
     }

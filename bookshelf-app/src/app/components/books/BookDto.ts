@@ -3,4 +3,5 @@ export interface BookDto {
   title: string;
   description: string;
   bookshelfNo: string;
+  imagePath: string;
 }

@@ -1,16 +1,42 @@
 const express = require("express");
+const multer = require("multer"); 
 const router = express.Router();
 const Book = require("../models/book");
 
+const MINE_TYPE_MAP = {
+  "image/png" : "png",
+  "image/jpeg" : "jpg",
+  "image/jpg" : "jpg", 
+}
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const isValid = MINE_TYPE_MAP[file.mimetype];
+    let error = new Error("Invalid mine type");
+    if(isValid) {
+      error = null;
+    }
+    cb(error, "C:/Users/achroscielewska/_PROJEKTY/MOJE/bookshelf-mean/bookshelf-api/src/app/images");
+  }, 
+  filename: (req, file, cb) => {
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const ext = MINE_TYPE_MAP[file.mimetype];
+    cb(null, name + '-' + Date.now() + '.' + ext);
+  }
+})
+
 // add new book
-router.post("/newBook", (req, res, next) => {
+router.post("/newBook", multer({storage: storage}).single("image") ,(req, res, next) => {
+  const url = req.protocol + '://' + req.get("host");
+  const bookObject = JSON.parse(req.body.book)
   const book = new Book({
-    title: req.body.title,
-    description: req.body.description,
-    bookshelfNo: req.body.bookshelfNo
+    title: bookObject.title,
+    description: bookObject.description,
+    bookshelfNo: bookObject.bookshelfNo,
+    imagePath: url + "/images/" + req.file.filename
   });
+
   book.save().then(result => {
-    res.status(201).json({ message: "Book added", bookId: result._id });
+    res.status(201).json({ message: "Book added", book: result });
   });
 });
 

@@ -26,7 +26,8 @@ export class BookService {
               id: book._id,
               title: book.title,
               description: book.description,
-              bookshelfNo: book.bookshelfNo
+              bookshelfNo: book.bookshelfNo,
+              imagePath: book.imagePath
             };
           });
         })
@@ -45,11 +46,15 @@ export class BookService {
     return this.http.get<{ message: string; book: BookDto }>(`${this.endpoint}/${id}`)
   }
 
-  addBook(book: Book) {
-    this.http.post<{ message: string; bookId: string }>(`${this.endpoint}/newBook`, book)
+  addBook(book: Book, image: File) {
+    const postData = new FormData();
+    postData.append('book', JSON.stringify(book));
+    postData.append('image', image, book.title);
+
+    this.http.post<{ message: string; book: BookDto }>(`${this.endpoint}/newBook`, postData)
       .subscribe(data => {
-        const id = data.bookId;
-        book.id = id;
+        book.id = data.book._id;
+        book.imagePath = data.book.imagePath;
 
         this.books.push(book);
         this.booksUpdated.next([...this.books]);
