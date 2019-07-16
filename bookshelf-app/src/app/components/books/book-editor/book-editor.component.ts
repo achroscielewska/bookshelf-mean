@@ -65,7 +65,12 @@ export class BookEditorComponent implements OnInit {
   }
 
   onImagePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
+    const file: File = (event.target as HTMLInputElement).files[0];
+
+    if (file.type !== 'image/jpg' && file.type !== 'image/jpeg' &&  file.type !== 'image/png') {
+      return alert('File format should be png or jpg or jpeg');
+    }
+
     this.form.patchValue({ image: file});
     this.form.get('image').updateValueAndValidity();
 
