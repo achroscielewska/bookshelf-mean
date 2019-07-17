@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const environment = require('../environment/environment');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const URL_DB = environment.db_url;
 
@@ -27,6 +28,8 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/images', express.static(path.join('C:/Users/achroscielewska/_PROJEKTY/MOJE/bookshelf-mean/bookshelf-api/src/images')))
+
 
 app.use(URL_API_BOOKS, booksRoutes);
 

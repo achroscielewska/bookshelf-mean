@@ -5,7 +5,9 @@
       {{ book.title }}
       <span><i> {{ book.bookshelfNo }}</i></span>
     </mat-expansion-panel-header>
-
+    <div class="list-image">
+      <img [src]="book.imagePath" [alt]="book.title">
+    </div>
     <p> {{ book.description }}</p>
     <mat-action-row>
         <a mat-button [routerLink]="['/edit', book.id]">EDIT</a>

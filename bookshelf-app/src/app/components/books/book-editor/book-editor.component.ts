@@ -62,7 +62,7 @@ export class BookEditorComponent implements OnInit {
       title: this.book.title,
       bookshelfNo: this.book.bookshelfNo,
       description: this.book.description,
-      image: null
+      image: this.book.imagePath
     });
   }
 
@@ -83,7 +83,7 @@ export class BookEditorComponent implements OnInit {
 
   saveBook() {
     if (this.form.invalid) {
-      return;
+      return alert('invalid form');
     }
     this.isLoading = true;
 
@@ -103,9 +103,9 @@ export class BookEditorComponent implements OnInit {
         title: this.form.value.title,
         description: this.form.value.description,
         bookshelfNo: this.form.value.bookshelfNo,
-        imagePath: null
+        imagePath: this.form.value.image
       };
-      this.bookService.updateBook(this.bookId, upadtedBook);
+      this.bookService.updateBook(this.bookId, upadtedBook, this.form.value.image);
     }
     this.form.reset();
   }

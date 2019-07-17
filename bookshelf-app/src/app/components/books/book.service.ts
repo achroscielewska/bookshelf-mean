@@ -62,10 +62,19 @@ export class BookService {
       });
   }
 
-  updateBook(id: string, book: Book) {
-    const updatedBook: Book = book;
+  updateBook(id: string, book: Book, image: File | string) {
+    let postData: FormData | Book;
+    if (typeof(image) === 'object') {
+      postData = new FormData();
+      book.imagePath = null;
+      postData.append('book', JSON.stringify(book));
+      postData.append('image', image, book.title);
+    } else {
+      postData = book;
+    }
+
     this.http
-      .put(`${this.endpoint}/${id}`, book)
+      .put(`${this.endpoint}/${id}`, postData)
       .subscribe(response => {
         console.log(response);
         this.router.navigate(['/']);

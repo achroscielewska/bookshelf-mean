@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     if(isValid) {
       error = null;
     }
-    cb(error, "C:/Users/achroscielewska/_PROJEKTY/MOJE/bookshelf-mean/bookshelf-api/src/app/images");
+    cb(error, "C:/Users/achroscielewska/_PROJEKTY/MOJE/bookshelf-mean/bookshelf-api/src/images");
   }, 
   filename: (req, file, cb) => {
     const name = file.originalname.toLowerCase().split(' ').join('-');
@@ -48,12 +48,20 @@ router.get("", (req, res, next) => {
 });
 
 // update book
-router.put('/:id', (req, res, next) => {
+router.put('/:id', multer({storage: storage}).single("image"), (req, res, next) => {
+  let imagePath = req.body.imagePath;
+
+  if( req.file ) {
+    const url = req.protocol + '://' + req.get("host");
+    imagePath = url + "/images/" + req.file.filename;
+  }
+
   const book = new Book({
     _id: req.params.id,
     title: req.body.title,
     description: req.body.description,
-    bookshelfNo: req.body.bookshelfNo, 
+    bookshelfNo: req.body.bookshelfNo,
+    imagePath: imagePath
   })
 
   Book.updateOne({_id: req.params.id }, book).then(result => {
